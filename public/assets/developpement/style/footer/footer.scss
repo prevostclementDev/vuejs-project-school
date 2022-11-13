@@ -1,0 +1,53 @@
+footer {
+
+    background-color: #FAFAFA;
+    @include flex (row, space-between, center);
+    padding: 20px 52px;
+    
+
+    .buuk {
+
+        p {
+
+            font-weight: 800;
+            font-size: 50px;
+            line-height: 63px;
+            background: linear-gradient(89.6deg, #D99CF0 -2.19%, #927BF9 102.14%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            user-select: none
+
+        }
+
+    }
+
+    .list-info {
+
+        @include flex (row, space-between, center);
+
+        li {
+
+
+            margin: 0 25px;
+
+            a {
+
+                color: #000000;
+                font-weight: 300;
+                font-size: 20px;
+                line-height: 25px;
+
+                strong {
+
+                    font-weight: 600;
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

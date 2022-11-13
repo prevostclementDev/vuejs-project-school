@@ -1,0 +1,101 @@
+.type_concert {
+
+    position: relative;
+    margin: 40px 80px;
+    padding: 62px 64px;
+    background-color: #F3EEFF;
+    border-radius: 47px;
+
+    h2 {
+
+        font-weight: 800;
+        font-size: 50px;
+        line-height: 63px;
+        
+        background: linear-gradient(89.6deg, #211C39 -2.19%, #927BF9 102.14%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+
+    }
+
+    .contains_artiste {
+
+        @include flex(row, flex-start, center);
+        overflow: hidden;
+        flex-wrap: nowrap;
+        padding: 20px 0;
+        cursor: grab;
+        /* scroll-behavior: smooth; */
+
+        a {
+
+            user-select: none;
+
+        }
+
+        .artiste {
+
+            position: relative;
+            width: calc(100% / 4.8);
+            height: 460px;
+            padding: 0 20px;
+            background-color: #211C39;
+            border-radius: 14px;
+            overflow: hidden;
+            border-radius: 30px;
+            flex-shrink: 0;
+            margin: 0 20px;
+            user-select: none;
+
+            .content {
+                
+                position: relative;
+                z-index: 1;
+                width: 100%;
+                height: 100%;
+                padding: 25px 10px 25px 20px;
+                @include flex(column, space-between, space-between);
+
+                .date {
+
+                    @include flex(row, flex-end, center);
+
+                    p {
+
+                        font-weight: 400;
+                        font-size: 14px;
+                        line-height: 18px;
+
+                    }
+
+                }
+
+                .info {
+
+                    h3 {
+
+                        font-weight: 800;
+                        font-size: 30px;
+                        line-height: 38px;
+                        margin-bottom: 10px;
+
+                    }
+
+                    p {
+
+                        font-weight: 300;
+                        font-size: 20px;
+                        line-height: 25px;
+
+                    }
+
+                }
+
+            }
+
+        }
+        
+    }
+
+}

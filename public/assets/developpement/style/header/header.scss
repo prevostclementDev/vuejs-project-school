@@ -1,0 +1,37 @@
+header {
+
+    padding: 215px 0;
+    position: relative;
+    @include flex;
+
+    h1 {
+
+        @include flex(column, center, center);
+        position: relative;
+        z-index: 1;
+
+        font-weight: 800;
+        font-size: 60px;
+        line-height: 75px;
+
+        span {
+
+            line-height: 63px;
+            font-size: 50px;
+            background: $bg-gradient-txt;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+
+        }
+        
+    }
+
+    img {
+
+        @include absoluteCenter;
+        z-index: 0;
+
+    }
+
+}

@@ -1,0 +1,49 @@
+.phone_download {
+
+    padding: 255px 0 165px;
+
+    h2,p,.download-link {
+
+        text-align: center;
+        color: #000;
+        max-width: 804px;
+        margin: 0 auto;
+
+    }
+
+    h2 {
+
+        background: linear-gradient(89.6deg, #D99CF0 -2.19%, #927BF9 102.14%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-weight: 800;
+        font-size: 50px;
+        line-height: 63px;
+        margin-bottom: 10px;
+
+    }
+
+    p {
+
+        font-weight: 400;
+        font-size: 24px;
+        line-height: 30px;
+        margin-bottom: 50px;
+
+    }
+
+    .download-link {
+
+        @include flex(row, center, center);
+
+        a {
+
+            display: inline-block;
+            margin: 0 20px;
+
+        }
+
+    }
+
+}
