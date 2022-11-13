@@ -9,7 +9,7 @@
     "sass-loader": "^12.3.0",
     "snowpack": "^3.3.7",
     "gulp": "^4.0.2",
-    "gulp-imagemin": "^7.1.0",
+    "gulp-imagemin": "^8.0.0",
     "gulp-sass": "^5.1.0",
     "sass": "^1.49.10"
   },
