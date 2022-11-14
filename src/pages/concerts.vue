@@ -78,7 +78,38 @@
                                 img_bg : "assets/production/img/angele.png"
 
                             },
+                            {
 
+                                name : "Djadju",
+                                date : "Le 20 Janvier 2022",
+                                lieu : "Marseille, Vélodrome",
+                                img_bg : "assets/production/img/angele.png"
+
+                            },
+                            {
+
+                                name : "Djadju",
+                                date : "Le 20 Janvier 2022",
+                                lieu : "Marseille, Vélodrome",
+                                img_bg : "assets/production/img/angele.png"
+
+                            },
+                            {
+
+                                name : "Djadju",
+                                date : "Le 20 Janvier 2022",
+                                lieu : "Marseille, Vélodrome",
+                                img_bg : "assets/production/img/angele.png"
+
+                            },
+                            {
+
+                                name : "Djadju",
+                                date : "Le 20 Janvier 2022",
+                                lieu : "Marseille, Vélodrome",
+                                img_bg : "assets/production/img/angele.png"
+
+                            },
                         ]
 
                     },

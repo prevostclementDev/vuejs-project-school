@@ -35,12 +35,16 @@
   
 <script lang="ts">
 
+    import axios from 'axios'
+
   export default {
 
     name: 'first_view',
 
     data() {
         return {
+
+            concerts : null,
 
             VisibleConcert: {
                     name: 'Angèle',
@@ -109,6 +113,27 @@
         }
 
     },
+
+    mounted () {
+		const bearerToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjM2MDQ0NjE4LCJleHAiOjE2Mzg2MzY2MTh9.L3GsjGPD6XaEPdjt6AVNRHXmjhXXWBcI2LyU3DjwP8E'
+        const header = {
+
+            headers: {
+                'Authorization': `Bearer ${bearerToken}`,
+                'accept': 'application/json'
+            }
+
+        }
+
+        axios
+        .get('https://buuk-api.herokuapp.com/concerts', header)
+        .then(response => {
+            this.concerts = response
+            console.log(this.concerts)
+        }).catch(error => {
+            console.log(error.response.status + " " + error.response.statusText + " " + error.response.config.url + " " + error.response.data.message)
+        })
+    }
 
   };
 
