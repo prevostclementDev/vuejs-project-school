@@ -23,7 +23,7 @@
                     <span>{{VisibleConcert.place}}</span>
                 </p>
 
-                <a href="" class="cta">Réserver</a>
+                <router-link :to="{ name : 'concert' , params : { id: VisibleConcert.idVisible } }" class="cta">Réserver</router-link>
 
             </div>
 
@@ -47,10 +47,11 @@
             concerts : null,
 
             VisibleConcert: {
-                    name: '',
-                    date : "",
-                    place : "",
-                    bg_img : "",
+                idVisible: {type : Number , default : 0},
+                name: {type : String , default : 'none'},
+                date : {type : String , default : 'none'},
+                place : {type : String , default : 'none'},
+                bg_img : {type : String , default : 'none'},
             },
 
         }
@@ -87,6 +88,7 @@
             }
 
             return this.VisibleConcert = {
+                "idVisible" : concert.id,
                 "name" : concert.artist.name,
                 "date" : concert.duration + " " + date,
                 "place" : concert.place + " " + concert.city,

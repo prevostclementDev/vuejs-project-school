@@ -17,9 +17,10 @@ const routes = [
     component: () => import('../pages/reservations.vue'),
   },
   {
-    path: '/concert',
+    path: '/concert/:id',
     name: 'concert',
     component: () => import('../pages/single_concert.vue'),
+    props : true,
   },
 ]
 

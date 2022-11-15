@@ -4,7 +4,7 @@
 
         <navigation v-bind:borderBottom="true"/>
 
-        <concert_component />
+        <concert_component v-bind:id_concert="$route.params.id"/>
 
         <footer_component />
 

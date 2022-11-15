@@ -2,14 +2,14 @@
     
     <section class="concert">
 
-        <img src="assets/production/img/angele.png" alt="" class="bg_img">
+        <img :src="concert.bg_img" alt="" class="bg_img">
         <div class="filter_bg"></div>
 
         <div class="content-concert">
 
             <div class="top-part">
                 
-                <p>Lyon, Palais des Sports</p>
+                <p>{{ concert.place }}</p>
 
             </div>
 
@@ -18,9 +18,9 @@
                 <div class="left-part">
 
                     <p>
-                        Angèle
+                        {{concert.name}}
                         <span>
-                            Le 20 janvier 2022, de 21h à 23h,
+                            {{concert.date}}
                         </span>
                     </p>
 
@@ -29,11 +29,11 @@
                 <div class="right-part">
 
                     <div class="price">
-                        <p>Prix: 45€</p>
+                        <p>Prix: {{concert.price}}€</p>
                     </div>
 
                     <div class="">
-                        <a href="" class="cta">Réserver</a>
+                        <router-link :to="{ name : 'reservations' , params : { id: concert.idVisible } }" class="cta">Réserver</router-link>
                     </div>
 
                 </div>
@@ -48,9 +48,87 @@
   
 <script lang="ts">
 
+    import axios from 'axios'
+
   export default {
 
     name: 'concert_component',
+
+    data() {
+        return {
+
+            concert : {
+                idVisible: Number,
+                name: String,
+                date : String,
+                place : String,
+                bg_img : String,
+                price : Number,
+            },
+
+        }
+    },
+
+    props : {
+        
+        id_concert: {type : Number, default : 0},
+
+    },
+
+    methods : {
+
+        setConcert (concert) {
+
+            let date;
+            let base_url = 'https://buuk-api.herokuapp.com';
+
+            if (concert.date == null) {
+
+                date = "date à venir";
+
+            } else {
+
+                date = new Date(concert.date).toLocaleDateString();
+
+            }
+
+            return this.concert = {
+                idVisible : concert.id,
+                name : concert.artist.name,
+                date : concert.duration + " " + date,
+                place : concert.place + " " + concert.city,
+                bg_img : base_url + concert.artist.photo.url,
+                price : concert.price,
+            };
+
+        }
+
+    },
+
+    mounted() {
+
+        const bearerToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjY4NTA2ODAyLCJleHAiOjE2NzEwOTg4MDJ9.W4Nlz9o5yr7CQGf6rnO8zSeOUE7b9u3YUMQ5xjPRCHk'
+        
+        const header = {
+
+            headers: {
+                'Authorization': `Bearer ${bearerToken}`,
+                'accept': 'application/json'
+            }
+
+        }
+
+        axios
+        .get('https://buuk-api.herokuapp.com/concerts/'+this.id_concert, header)
+        .then(response => {
+            if ( response.status === 200 ) {
+               this.setConcert(response.data);
+            }
+        }).catch(error => {
+            console.log(error.response.status + " " + error.response.statusText + " " + error.response.config.url + " " + error.response.data.message)
+        })
+
+    },
 
   };
 
