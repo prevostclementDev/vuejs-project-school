@@ -6,7 +6,7 @@
 
             <ul class="list_name">
 
-                <li v-for="(concert, index) in getLastedConcerts"><button @click="(event) => changeVisibleConcert(event,index)" class="btnFirstView" v-bind:class="{'active' : index === 0}" >{{ concert.name }}</button></li>
+                <li v-for="(concert, index) in concerts"><button @click="(event) => setVisibleConcert(event,index)" class="btnFirstView" v-bind:class="{'active' : index === 0}" >{{ concert.artist.name }}</button></li>
 
             </ul>
 
@@ -47,59 +47,18 @@
             concerts : null,
 
             VisibleConcert: {
-                    name: 'Angèle',
-                    date : "15 DÉCEMBRE 2020",
-                    place : "LYON, PALAIS DES SPORTS",
-                    bg_img : "assets/production/img/angele.png",
+                    name: '',
+                    date : "",
+                    place : "",
+                    bg_img : "",
             },
 
         }
     },
 
-    computed : {
-
-        getLastedConcerts () {
-            
-            return [
-                {
-                    name: 'Angèle',
-                    date : "15 DÉCEMBRE 220",
-                    place : "LYON, ALAIS DES SPORTS",
-                    bg_img : "assets/production/img/angele.png",
-                },
-                {
-                    name: 'Angèl',
-                    date : "15 DÉCEMBRE 2020",
-                    place : "LYON, PAL DES SPORTS",
-                    bg_img : "assets/production/img/angele.png",
-                },
-                {
-                    name: 'Angè',
-                    date : "15 DÉCEMBRE 2020",
-                    place : "LYON, PALS DES SPORTS",
-                    bg_img : "assets/production/img/angele.png",
-                },
-                {
-                    name: 'Ang',
-                    date : "15 DÉCEMBRE 2020",
-                    place : "LYON, PALAIS DS SPORTS",
-                    bg_img : "assets/production/img/angele.png",
-                },
-                {
-                    name: 'An',
-                    date : "15 DÉCEMBRE 2020",
-                    place : "LYON, PALAIS DES SPORT",
-                    bg_img : "assets/production/img/angele.png",
-                },
-            ];
-
-        }
-
-    },
-
     methods : {
 
-        changeVisibleConcert (event,index) {
+        setVisibleConcert (event,index) {
 
             const activeButton = document.querySelectorAll('.btnFirstView.active');
 
@@ -107,15 +66,40 @@
                 button.classList.remove('active');
             });
 
-            this.VisibleConcert = this.getLastedConcerts[index];
+            this.VisibleConcert = this.setArrayVisible(this.concerts[index]);
             event.target.classList.add('active');
+
+        },
+
+        setArrayVisible (concert) {
+
+            let date;
+            let base_url = 'https://buuk-api.herokuapp.com';
+
+            if (concert.date == null) {
+
+                date = "date à venir";
+
+            } else {
+
+                date = new Date(concert.date).toLocaleDateString();
+
+            }
+
+            return this.VisibleConcert = {
+                "name" : concert.artist.name,
+                "date" : concert.duration + " " + date,
+                "place" : concert.place + " " + concert.city,
+                "bg_img" : base_url + concert.artist.photo.url,
+            };
 
         }
 
     },
 
     mounted () {
-		const bearerToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjM2MDQ0NjE4LCJleHAiOjE2Mzg2MzY2MTh9.L3GsjGPD6XaEPdjt6AVNRHXmjhXXWBcI2LyU3DjwP8E'
+		const bearerToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjY4NTA2ODAyLCJleHAiOjE2NzEwOTg4MDJ9.W4Nlz9o5yr7CQGf6rnO8zSeOUE7b9u3YUMQ5xjPRCHk'
+        
         const header = {
 
             headers: {
@@ -126,10 +110,12 @@
         }
 
         axios
-        .get('https://buuk-api.herokuapp.com/concerts', header)
+        .get('https://buuk-api.herokuapp.com/concerts?_sort=date%3Adesc&_limit=5', header)
         .then(response => {
-            this.concerts = response
-            console.log(this.concerts)
+            if ( response.status === 200 ) {
+                this.concerts = response.data;
+                this.VisibleConcert = this.setArrayVisible(this.concerts[0]);
+            }
         }).catch(error => {
             console.log(error.response.status + " " + error.response.statusText + " " + error.response.config.url + " " + error.response.data.message)
         })
