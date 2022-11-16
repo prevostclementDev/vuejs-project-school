@@ -9,7 +9,7 @@
             <div class="content">
                         
                 <div class="date">
-                    <p>{{ new Date(concert.date).toLocaleDateString() }}</p>
+                    <p>{{ new Date(concert.date).toLocaleDateString()  }}</p>
                 </div>
 
                 <div class="info">

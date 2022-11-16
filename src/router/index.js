@@ -15,6 +15,7 @@ const routes = [
     path: '/mes-reservations',
     name: 'reservations',
     component: () => import('../pages/reservations.vue'),
+    props : true,
   },
   {
     path: '/concert/:id',

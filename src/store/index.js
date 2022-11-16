@@ -3,11 +3,23 @@ import { createStore } from 'vuex'
 import axios from 'axios'
 
 const store = createStore({
-  state: {
-    headerAPI : {
-      Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjY4NTA2ODAyLCJleHAiOjE2NzEwOTg4MDJ9.W4Nlz9o5yr7CQGf6rnO8zSeOUE7b9u3YUMQ5xjPRCHk`,
-      accept: 'application/json'
-    },
+  state () {
+
+    return {
+
+      headerAPI : {
+        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjY4NTA2ODAyLCJleHAiOjE2NzEwOTg4MDJ9.W4Nlz9o5yr7CQGf6rnO8zSeOUE7b9u3YUMQ5xjPRCHk`,
+        accept: 'application/json'
+      },
+      reservation : [],
+      reservationStatus : {
+
+        status : false,
+
+      },
+
+    }
+
   },
   mutations: {
 
@@ -35,7 +47,35 @@ const store = createStore({
   
     },
 
-  }
+    add_reservation (state , data) {
+
+        this.commit('call_api', { 
+          url: '/concerts/'+data.id, 
+          callback: (response) => {
+            this.state.reservation.push(response);
+          }
+        })
+
+    },
+
+    delete_reservation (state , id) {
+
+      this.state.reservation.splice(
+        this.state.reservation.findIndex(object => {
+          return object.id == id;
+        }), 
+        1
+      );
+      
+    },
+
+    set_reservation_status (state , status) {
+
+      this.state.reservationStatus.status = status;
+
+    }
+
+}
 })
 
 export default store;

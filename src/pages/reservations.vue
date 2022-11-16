@@ -6,7 +6,7 @@
 
     </section>
 
-    <no_reservation v-if="!reservation" />
+    <no_reservation v-if="!status_reservation" />
     <all_reservation v-else />
 
     <footer_component />
@@ -23,6 +23,7 @@
 
     export default {
         name: 'reservations',
+
         components: {
             navigation,
             header_component,
@@ -31,15 +32,53 @@
             all_reservation,
         },
 
+        props : {
+
+            id : {type : Number, default : 0},
+
+        },
+
         data() {
+
+            if ( this.$store.state.reservation.length != 0 ) {
+
+                this.$store.commit('set_reservation_status', false);
+
+            }
 
             return {
 
-                reservation : true,
+                reservation : this.$store.state.reservationStatus,
 
             }
 
         },
+
+        computed: {
+
+            status_reservation () {
+
+                return this.reservation.status;
+
+            }
+
+        },
+
+        mounted() {
+
+            if ( this.id != 0 && this.id != undefined ) {
+
+                this.$store.commit('add_reservation', {
+                    id : this.id,
+                });
+
+                this.$store.commit('set_reservation_status', true);
+
+                return;
+
+            }
+
+        }
 
     }
 </script>

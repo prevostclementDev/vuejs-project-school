@@ -3,14 +3,14 @@
     <section class="all_reservation">
 
         <div class="text_info">
-            <h2>Tu as 5 réservations de concerts</h2>
+            <h2>Tu as {{ reservations.length }} réservations de concerts</h2>
         </div>
 
         <div class="contains-reservation">
             
-            <div class="reservation">
-                <h3><strong>Angèle,</strong>le 15 décembre 2021 à Paris</h3>
-                <button class="delete">Supprimer</button>
+            <div class="reservation" v-for="reservation in reservations" v-if="reservations.length != 0">
+                <h3><strong>{{reservation.artist.name}},</strong>le {{reservation.date}} à Paris</h3>
+                <button class="delete" :deleteID="reservation.id" @click.prevent="(event) => deleteReservation(event)">Supprimer</button>
             </div>
             
         </div>
@@ -24,6 +24,27 @@
   export default {
 
     name: 'all_reservation',
+
+    computed : {
+
+        reservations() {
+
+            return this.$store.state.reservation;
+
+        }
+
+    },
+
+    methods : {
+
+        deleteReservation(event) {
+
+            this.$store.commit('delete_reservation', event.target.getAttribute('deleteID'));
+            this.$store.commit('set_reservation_status', false);
+
+        }
+
+    }
 
   };
 
