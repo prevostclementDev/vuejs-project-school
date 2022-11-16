@@ -36,132 +36,50 @@
 
             return {
 
-                types : [
-
-                    {
-                        name : "Rap/Rnb",
-
-                        concerts : [
-
-                            {
-
-                                name : "Djadju",
-                                date : "Le 20 Janvier 2022",
-                                lieu : "Marseille, Vélodrome",
-                                img_bg : "assets/production/img/angele.png"
-
-                            },
-
-                            {
-
-                                name : "Djadju",
-                                date : "Le 20 Janvier 2022",
-                                lieu : "Marseille, Vélodrome",
-                                img_bg : "assets/production/img/angele.png"
-
-                            },
-
-                            {
-
-                                name : "Djadju",
-                                date : "Le 20 Janvier 2022",
-                                lieu : "Marseille, Vélodrome",
-                                img_bg : "assets/production/img/angele.png"
-
-                            },
-
-                            {
-
-                                name : "Djadju",
-                                date : "Le 20 Janvier 2022",
-                                lieu : "Marseille, Vélodrome",
-                                img_bg : "assets/production/img/angele.png"
-
-                            },
-                            {
-
-                                name : "Djadju",
-                                date : "Le 20 Janvier 2022",
-                                lieu : "Marseille, Vélodrome",
-                                img_bg : "assets/production/img/angele.png"
-
-                            },
-                            {
-
-                                name : "Djadju",
-                                date : "Le 20 Janvier 2022",
-                                lieu : "Marseille, Vélodrome",
-                                img_bg : "assets/production/img/angele.png"
-
-                            },
-                            {
-
-                                name : "Djadju",
-                                date : "Le 20 Janvier 2022",
-                                lieu : "Marseille, Vélodrome",
-                                img_bg : "assets/production/img/angele.png"
-
-                            },
-                            {
-
-                                name : "Djadju",
-                                date : "Le 20 Janvier 2022",
-                                lieu : "Marseille, Vélodrome",
-                                img_bg : "assets/production/img/angele.png"
-
-                            },
-                        ]
-
-                    },
-                    {
-                        name : "Variété francaise",
-
-                        concerts : [
-
-                            {
-
-                                name : "Djadju",
-                                date : "Le 21 Janvier 2022",
-                                lieu : "Marseille, Vélodrome",
-                                img_bg : "assets/production/img/angele.png"
-
-                            },
-
-                            {
-
-                                name : "Djadju",
-                                date : "Le 21 Janvier 2022",
-                                lieu : "Marseille, Vélodrome",
-                                img_bg : "assets/production/img/angele.png"
-
-                            },
-
-                        ]
-                        
-                    },
-                    {
-                        name : "Electro",
-
-                        concerts : [
-
-                            {
-
-                                name : "Djadju",
-                                date : "Le 22 Janvier 2022",
-                                lieu : "Marseille, Vélodrome",
-                                img_bg : "assets/production/img/angele.png"
-
-                            },
-
-                        ]
-
-                    },
-
-                ],
+                types : [], 
 
             }
 
         },
+
+        methods : {
+
+            setType(types) {
+
+                for (let type of types ) {
+
+                    this.$store.commit('call_api', {
+                        url : '/concerts?music_style='+type.id,
+                        callback : (response) => {
+
+                            this.types.push({
+                                name : type.name,
+                                id : type.id,
+                                concerts : response,
+                            })
+
+                        }
+                    })
+
+                }
+
+            }
+
+        },
+
+        mounted() {
+
+            this.$store.commit('call_api', {
+                url : '/music-styles',
+                callback : (response) => {
+
+                    this.setType(response);
+
+                }
+                
+            }) 
+
+        }
 
     }
 </script>

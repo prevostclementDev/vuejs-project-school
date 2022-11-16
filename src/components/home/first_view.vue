@@ -1,5 +1,5 @@
 <template>
-    
+
     <section class="choise_artiste">
 
         <div class="top_container">
@@ -35,7 +35,7 @@
   
 <script lang="ts">
 
-    import axios from 'axios'
+  import axios from 'axios'
 
   export default {
 
@@ -44,7 +44,7 @@
     data() {
         return {
 
-            concerts : null,
+            concerts : {},
 
             VisibleConcert: {
                 idVisible: {type : Number , default : 0},
@@ -100,27 +100,18 @@
     },
 
     mounted () {
-		const bearerToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjY4NTA2ODAyLCJleHAiOjE2NzEwOTg4MDJ9.W4Nlz9o5yr7CQGf6rnO8zSeOUE7b9u3YUMQ5xjPRCHk'
-        
-        const header = {
 
-            headers: {
-                'Authorization': `Bearer ${bearerToken}`,
-                'accept': 'application/json'
-            }
+         this.$store.commit('call_api', {
+            url : '/concerts?_sort=date%3Adesc&_limit=5',
+            callback : (response) => {
 
-        }
-
-        axios
-        .get('https://buuk-api.herokuapp.com/concerts?_sort=date%3Adesc&_limit=5', header)
-        .then(response => {
-            if ( response.status === 200 ) {
-                this.concerts = response.data;
+                this.concerts = response;
                 this.VisibleConcert = this.setArrayVisible(this.concerts[0]);
+
             }
-        }).catch(error => {
-            console.log(error.response.status + " " + error.response.statusText + " " + error.response.config.url + " " + error.response.data.message)
-        })
+            
+        }) 
+
     }
 
   };

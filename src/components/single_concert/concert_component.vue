@@ -107,26 +107,15 @@
 
     mounted() {
 
-        const bearerToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjY4NTA2ODAyLCJleHAiOjE2NzEwOTg4MDJ9.W4Nlz9o5yr7CQGf6rnO8zSeOUE7b9u3YUMQ5xjPRCHk'
-        
-        const header = {
+        this.$store.commit('call_api', {
+            url : '/concerts/'+this.id_concert,
+            callback : (response) => {
 
-            headers: {
-                'Authorization': `Bearer ${bearerToken}`,
-                'accept': 'application/json'
+                this.setConcert(response);
+
             }
-
-        }
-
-        axios
-        .get('https://buuk-api.herokuapp.com/concerts/'+this.id_concert, header)
-        .then(response => {
-            if ( response.status === 200 ) {
-               this.setConcert(response.data);
-            }
-        }).catch(error => {
-            console.log(error.response.status + " " + error.response.statusText + " " + error.response.config.url + " " + error.response.data.message)
-        })
+            
+        }) 
 
     },
 
