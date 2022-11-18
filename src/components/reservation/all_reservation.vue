@@ -40,7 +40,12 @@
         deleteReservation(event) {
 
             this.$store.commit('delete_reservation', event.target.getAttribute('deleteID'));
-            this.$store.commit('set_reservation_status', false);
+            
+            if ( this.$store.state.reservation.length == 0 ) {
+
+                this.$store.commit('set_reservation_status', false);
+
+            }
 
         }
 

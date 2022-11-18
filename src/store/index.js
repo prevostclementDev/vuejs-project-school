@@ -73,7 +73,7 @@ const store = createStore({
 
       this.state.reservationStatus.status = status;
 
-    }
+    },
 
 }
 })

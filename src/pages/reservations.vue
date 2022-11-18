@@ -78,6 +78,12 @@
 
             }
 
+            if ( this.$store.state.reservation.length != 0 ) {
+
+                this.$store.commit('set_reservation_status', true);
+
+            }
+
         }
 
     }

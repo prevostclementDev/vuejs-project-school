@@ -106,6 +106,7 @@
             callback : (response) => {
 
                 this.concerts = response;
+                console.log(this.concerts);
                 this.VisibleConcert = this.setArrayVisible(this.concerts[0]);
 
             }

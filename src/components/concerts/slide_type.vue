@@ -3,7 +3,7 @@
     <router-link v-if="concert" :to="{ name : 'concert' , params : { id : concert.id} }" style="display:contents;">
         <div class="artiste">
 
-            <img v-bind:src="concert.artist.photo.url" alt="" class="bg_img">
+            <img v-bind:src="'https://buuk-api.herokuapp.com'+concert.artist.photo.url" alt="" class="bg_img">
             <div class="filter_bg"></div>
                     
             <div class="content">

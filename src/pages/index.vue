@@ -10,7 +10,6 @@
 
       <phone_download />
       <footer_component />
-
 </template>
 
 <script>

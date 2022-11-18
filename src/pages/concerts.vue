@@ -2,13 +2,16 @@
     <section class="container-index raduis-left">
 
       <navigation />
-      <header_component title="Mes réservations," title_second="en avant-première." v-bind:imgVisible="true"/>
+      <header_component title="Tous les concerts," title_second="en avant-première." v-bind:imgVisible="true"/>
 
     </section>
+    
+    <filtre @filterArrayName="filterArtist" @SortedBy="SortedBy" />
 
-    <concert_type v-for="type in types" v-bind:type="type.name">
-        <slide_type v-for="concert in type.concerts" v-bind:concert="concert" />
-    </concert_type>
+        <concert_type v-for="type in types" v-bind:type="type.name">
+            <slide_type v-for="concert in type.concerts.filter(concert => filterConcerts.includes(concert))" v-bind:concert="concert" /> 
+        </concert_type>
+
 
     <footer_component />
 
@@ -21,6 +24,7 @@
     import footer_component from '../components/general/footer_component.vue'
     import concert_type from '../components/concerts/concert_type.vue'
     import slide_type from '../components/concerts/slide_type.vue'
+    import filtre from '../components/general/filtre_comp.vue'
 
     export default {
         name: 'concerts',
@@ -30,13 +34,15 @@
             footer_component,
             concert_type,
             slide_type,
+            filtre,
         },
 
         data() {
 
             return {
 
-                types : [], 
+                types : [],
+                filterConcerts : []
 
             }
 
@@ -58,7 +64,63 @@
                                 concerts : response,
                             })
 
+                            response.forEach(concert => {
+                                this.filterConcerts.push(concert)
+                            });
+
                         }
+                    })
+
+                }
+
+            },
+
+            filterArtist(input) {
+
+                this.filterConcerts = []
+
+                this.types.forEach(type => {
+                    
+                    type.concerts.filter(concert => 
+                        concert.artist.name
+                        .toLowerCase()
+                        .includes(
+                            input.value.toLowerCase()
+                        ) === true 
+                    ).forEach(el => {
+                        this.filterConcerts.push(el)
+                    })
+
+                });
+
+            },
+
+            SortedBy(input) {
+
+                if ( input.value == "dcroissant" ) {
+
+                    this.types.forEach(type => {
+
+                        type.concerts.sort( (a, b) => {
+
+                            return a.date < b.date;
+
+                        })
+
+                    })
+
+                }
+
+                if ( input.value == "ddcroissant" ) {
+
+                    this.types.forEach(type => {
+
+                        type.concerts.sort( (a, b) => {
+
+                            return a.date > b.date;
+
+                        })
+
                     })
 
                 }
