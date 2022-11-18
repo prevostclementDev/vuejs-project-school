@@ -8,7 +8,7 @@
     
     <filtre @filterArrayName="filterArtist" @SortedBy="SortedBy" />
 
-        <concert_type v-for="type in types" v-bind:type="type.name">
+        <concert_type v-for="type in types.filter(CheckConcertsInType)" v-bind:type="type.name">
             <slide_type v-for="concert in type.concerts.filter(concert => filterConcerts.includes(concert))" v-bind:concert="concert" /> 
         </concert_type>
 
@@ -92,6 +92,20 @@
                     })
 
                 });
+
+            },
+
+            CheckConcertsInType(element){
+
+                let check = false;
+
+                element.concerts.map(concert => {
+                    if ( this.filterConcerts.includes(concert) ) {
+                        check = true;
+                    }
+                })
+
+                return check;
 
             },
 
