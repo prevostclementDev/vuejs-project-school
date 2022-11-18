@@ -18,8 +18,8 @@
 
                 <p>Trier par</p>
                 <select @change="(event)=> sortedBy(event)" name="" id="">
-                    <option value="dcroissant">Date croissant</option>
-                    <option value="ddcroissant">Date décroissant</option>
+                    <option value="dcroissant">Date croissante</option>
+                    <option value="ddcroissant">Date décroissante</option>
                 </select>
 
             </label>
